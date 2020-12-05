@@ -10,15 +10,31 @@
 	}
 	canvas { background-color: black;}
 	h4 { color: white;} 
+	label { color: white;}
+	
 </style>
 
 <body>
 	
 	<div class="container-fluid bg-1 text-center">
 		<h4 class="margin" id="controls">Controls</h4>		
-		<button onclick="if(!isRunning){myVar=setInterval(drawClock, 10); isRunning=true;}">Play</button>
+		<button onclick="if(!isRunning){myVar=setInterval(drawTT, speed); isRunning=true;}">Play</button>
 		<button onclick="if(isRunning){clearInterval(myVar); isRunning=false;}">Pause</button>
-		<button onclick="if(!isRunning){factor=1.000;myVar=setInterval(drawClock, 10); isRunning=true;}">Restart</button>
+		<button onclick="factor = 1.000; if(!isRunning){drawTT();}">Restart</button>
+	</div>
+	<div>
+		<label class="container">Low Speed
+			<input type="radio" name="radio" onclick="setSpeed(20)">
+			<span class="checkmark"></span>
+		</label>
+		<label class="container">Medium Speed
+		  <input type="radio" checked="checked" name="radio" onclick="setSpeed(10)">
+		  <span class="checkmark"></span>
+		</label>
+		<label class="container">High Speed
+		  <input type="radio" name="radio" onclick="setSpeed(5)">
+		  <span class="checkmark"></span>
+		</label>
 	</div>
 	<div class="container-fluid bg-1 text-center">
 		<h4 class="margin" id="timetable">Times Table</h4>		
@@ -29,6 +45,7 @@
 	
 	<script>
 		var canvas = document.getElementById("canvas");
+		var speed = 10;
 		var isRunning = false;
 		var ctx = canvas.getContext("2d");
 		var radius = canvas.height / 2;
@@ -36,6 +53,7 @@
 		var factor = 1.000;
 		ctx.translate(radius, radius);
 		radius = radius * 0.90
+		drawCircle();
 		
 		function drawCircle() {
 			ctx.beginPath();
@@ -44,8 +62,8 @@
 			ctx.fill();
 		}
 		
-		function drawClock() {		
-			factor = factor + 0.001;
+		function drawTT() {		
+			factor = factor < 100.000 ? factor + 0.001 : 1.000;
 			var delta = (2 * Math.PI) / numofpts;
 			ctx.translate(-radius, -radius);
 			ctx.clearRect(0, 0, 600, 600);
@@ -67,6 +85,15 @@
 			}
 		}
 		
+		function setSpeed(s) {
+			if(isRunning) {
+				clearInterval(myVar);
+				myVar=setInterval(drawTT, s)
+			}
+			else {
+				speed = s;
+			}
+		}
 		
 		function CirclePoints(radius, angle, origin) {
 			var x = radius * Math.cos(angle) + origin[0];
