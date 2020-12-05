@@ -36,6 +36,12 @@
 		  <span class="checkmark"></span>
 		</label>
 	</div>
+	<div>
+		<label class="container">Color
+			<input type="checkbox" name="selectColor" onclick="dualColor=!dualColor;">
+			<span class="checkmark"></span>
+		</label>
+	</div>
 	<div class="container-fluid bg-1 text-center">
 		<h4 class="margin" id="timetable">Times Table</h4>		
 		<canvas id="canvas" width="500" height="500"></canvas>
@@ -46,6 +52,7 @@
 	<script>
 		var canvas = document.getElementById("canvas");
 		var speed = 10;
+		var dualColor = false;
 		var isRunning = false;
 		var ctx = canvas.getContext("2d");
 		var radius = canvas.height / 2;
@@ -58,8 +65,8 @@
 		function drawCircle() {
 			ctx.beginPath();
 			ctx.arc(0, 0, radius, 0 , 2 * Math.PI);
-			ctx.fillStyle = "white";
-			ctx.fill();
+			ctx.strokeStyle = "white";
+			ctx.stroke();
 		}
 		
 		function drawTT() {		
@@ -69,7 +76,7 @@
 			ctx.clearRect(0, 0, 600, 600);
 			ctx.translate(radius, radius);
 			
-			drawCircle();
+			
 			
 			for (i = 0; i < numofpts; i++) {
 				var a = (i % numofpts) * delta;
@@ -78,11 +85,22 @@
 				var pointB = CirclePoints(radius, b, [0, 0]);
 				ctx.beginPath();
 				ctx.lineWidth = "2";
-				ctx.strokeStyle = "green"; // Green path
+				if(dualColor) {
+					if (i % 2 == 0) {
+						var r = parseInt(factor * 2.500);
+						var g = parseInt(250 - factor * 2.500);
+						ctx.strokeStyle = "rgb("+r+","+g+", 125)"; 
+					} else {
+						ctx.strokeStyle = "rgb("+g+","+r+", 125)"; 
+					}
+				} else {
+					ctx.strokeStyle = "#f8f8ff";
+				}
 				ctx.moveTo(pointA.x, pointA.y);
 				ctx.lineTo(pointB.x, pointB.y);
 				ctx.stroke();
 			}
+			drawCircle();
 		}
 		
 		function setSpeed(s) {
