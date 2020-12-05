@@ -1,0 +1,78 @@
+<html>
+
+<head>
+	<title>Times Table
+	</title>
+</head>
+
+<style>
+	body { background-color: black;
+	}
+	canvas { background-color: black;}
+	h4 { color: white;} 
+</style>
+
+<body>
+	
+	<div class="container-fluid bg-1 text-center">
+		<h4 class="margin" id="controls">Controls</h4>		
+		<button onclick="if(!isRunning){myVar=setInterval(drawClock, 10); isRunning=true;}">Play</button>
+		<button onclick="if(isRunning){clearInterval(myVar); isRunning=false;}">Pause</button>
+		<button onclick="if(!isRunning){factor=1.000;myVar=setInterval(drawClock, 10); isRunning=true;}">Restart</button>
+	</div>
+	<div class="container-fluid bg-1 text-center">
+		<h4 class="margin" id="timetable">Times Table</h4>		
+		<canvas id="canvas" width="500" height="500"></canvas>
+	</div>
+	
+	
+	
+	<script>
+		var canvas = document.getElementById("canvas");
+		var isRunning = false;
+		var ctx = canvas.getContext("2d");
+		var radius = canvas.height / 2;
+		var numofpts = 200;
+		var factor = 1.000;
+		ctx.translate(radius, radius);
+		radius = radius * 0.90
+		
+		function drawCircle() {
+			ctx.beginPath();
+			ctx.arc(0, 0, radius, 0 , 2 * Math.PI);
+			ctx.fillStyle = "white";
+			ctx.fill();
+		}
+		
+		function drawClock() {		
+			factor = factor + 0.001;
+			var delta = (2 * Math.PI) / numofpts;
+			ctx.translate(-radius, -radius);
+			ctx.clearRect(0, 0, 600, 600);
+			ctx.translate(radius, radius);
+			
+			drawCircle();
+			
+			for (i = 0; i < numofpts; i++) {
+				var a = (i % numofpts) * delta;
+				var b = ((i * factor) % numofpts) * delta;
+				var pointA = CirclePoints(radius, a, [0, 0]);
+				var pointB = CirclePoints(radius, b, [0, 0]);
+				ctx.beginPath();
+				ctx.lineWidth = "2";
+				ctx.strokeStyle = "green"; // Green path
+				ctx.moveTo(pointA.x, pointA.y);
+				ctx.lineTo(pointB.x, pointB.y);
+				ctx.stroke();
+			}
+		}
+		
+		
+		function CirclePoints(radius, angle, origin) {
+			var x = radius * Math.cos(angle) + origin[0];
+			var y = radius * Math.sin(angle) + origin[1];
+			
+			return {x, y};
+		}
+</script>
+</body>
