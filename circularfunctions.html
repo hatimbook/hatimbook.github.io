@@ -1,0 +1,40 @@
+<html>
+
+<head>
+	<title>Circular Functions
+	</title>
+</head>
+
+<style>
+	body { background-color: black;
+	}
+	canvas { background-color: black;}
+	h4 { color: white;} 
+	label { color: white;}
+	
+</style>
+
+<body>
+	
+	<div>
+		<label class="container">Audio
+			<input type="checkbox" name="selectColor" onclick="playaudio=!playaudio; audioplay(!playaudio);">
+			<span class="checkmark"></span>
+		</label>
+		<label class="container">Show diagonals
+			<input type="checkbox" name="showdiag" onclick="showdiag = !showdiag;" checked>
+			<span class="checkmark"></span>
+		</label>
+	</div>
+	<div class="container-fluid bg-1 text-center">
+		<h4 class="margin" id="timetable">Circular Functions</h4>
+		<div> <label id="factorlabel" style="color: #f8f8ff font-size: 28px"/> </div> 
+		<canvas id="canvas" width="500" height="500"></canvas>
+		<audio id = "bgaudio" src="bg_audio.mp3">
+			<p>If you are reading this, it is because your browser does not support the audio element. </p>
+		</audio>
+	</div>
+		
+	<script src="circularfunctions.js"></script>
+
+</body>
