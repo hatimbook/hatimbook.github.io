@@ -18,9 +18,9 @@
 	
 	<div class="container-fluid bg-1 text-center">
 		<h4 class="margin" id="controls">Controls</h4>		
-		<button onclick="if(!isRunning){myVar=setInterval(drawTT, speed); isRunning=true;}">Play</button>
-		<button onclick="if(isRunning){clearInterval(myVar); isRunning=false;}">Pause</button>
-		<button onclick="factor = 1.000; if(!isRunning){drawTT();}">Restart</button>
+		<button onclick="if(!isRunning){myVar=setInterval(drawTT, speed); isRunning=true; audioplay(false);}">Play</button>
+		<button onclick="if(isRunning){clearInterval(myVar); isRunning=false;  audioplay(true);}">Pause</button>
+		<button onclick="factor = 1.000; if(!isRunning){drawTT(); }">Reset</button>
 	</div>
 	<div>
 		<label class="container">Low Speed
@@ -41,83 +41,26 @@
 			<input type="checkbox" name="selectColor" onclick="dualColor=!dualColor;">
 			<span class="checkmark"></span>
 		</label>
+		<label class="container">Audio
+			<input type="checkbox" name="selectColor" onclick="playaudio=!playaudio; audioplay(!playaudio);">
+			<span class="checkmark"></span>
+		</label>
+	</div>
+	<div>
+		<label class="container">Points
+			<input type="range" id="NumPts" min= "10" max = "400" value = "200" onclick="">
+			<span class="checkmark"></span>
+		</label>
 	</div>
 	<div class="container-fluid bg-1 text-center">
-		<h4 class="margin" id="timetable">Times Table</h4>		
+		<h4 class="margin" id="timetable">Times Table</h4>
+		<div> <label id="factorlabel" style="color: #f8f8ff font-size: 28px"/> </div> 
 		<canvas id="canvas" width="500" height="500"></canvas>
+		<audio id = "bgaudio" src="bg_audio.mp3">
+			<p>If you are reading this, it is because your browser does not support the audio element. </p>
+		</audio>
 	</div>
-	
-	
-	
-	<script>
-		var canvas = document.getElementById("canvas");
-		var speed = 10;
-		var dualColor = false;
-		var isRunning = false;
-		var ctx = canvas.getContext("2d");
-		var radius = canvas.height / 2;
-		var numofpts = 200;
-		var factor = 1.000;
-		ctx.translate(radius, radius);
-		radius = radius * 0.90
-		drawCircle();
 		
-		function drawCircle() {
-			ctx.beginPath();
-			ctx.arc(0, 0, radius, 0 , 2 * Math.PI);
-			ctx.strokeStyle = "white";
-			ctx.stroke();
-		}
-		
-		function drawTT() {		
-			factor = factor < 100.000 ? factor + 0.001 : 1.000;
-			var delta = (2 * Math.PI) / numofpts;
-			ctx.translate(-radius, -radius);
-			ctx.clearRect(0, 0, 600, 600);
-			ctx.translate(radius, radius);
-			
-			
-			
-			for (i = 0; i < numofpts; i++) {
-				var a = (i % numofpts) * delta;
-				var b = ((i * factor) % numofpts) * delta;
-				var pointA = CirclePoints(radius, a, [0, 0]);
-				var pointB = CirclePoints(radius, b, [0, 0]);
-				ctx.beginPath();
-				ctx.lineWidth = "2";
-				if(dualColor) {
-					if (i % 2 == 0) {
-						var r = parseInt(factor * 2.500);
-						var g = parseInt(250 - factor * 2.500);
-						ctx.strokeStyle = "rgb("+r+","+g+", 125)"; 
-					} else {
-						ctx.strokeStyle = "rgb("+g+","+r+", 125)"; 
-					}
-				} else {
-					ctx.strokeStyle = "#f8f8ff";
-				}
-				ctx.moveTo(pointA.x, pointA.y);
-				ctx.lineTo(pointB.x, pointB.y);
-				ctx.stroke();
-			}
-			drawCircle();
-		}
-		
-		function setSpeed(s) {
-			if(isRunning) {
-				clearInterval(myVar);
-				myVar=setInterval(drawTT, s)
-			}
-			else {
-				speed = s;
-			}
-		}
-		
-		function CirclePoints(radius, angle, origin) {
-			var x = radius * Math.cos(angle) + origin[0];
-			var y = radius * Math.sin(angle) + origin[1];
-			
-			return {x, y};
-		}
-</script>
+	<script src="timestable.js"></script>
+
 </body>
