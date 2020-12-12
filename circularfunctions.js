@@ -81,3 +81,13 @@ function audioplay(pause) {
 		bgaudio.play();
 	}
 }
+
+function goFullScreen(){
+    if(canvas.requestFullScreen)
+        canvas.requestFullScreen();
+    else if(canvas.webkitRequestFullScreen)
+        canvas.webkitRequestFullScreen();
+    else if(canvas.mozRequestFullScreen)
+        canvas.mozRequestFullScreen();
+	drawCF();
+}

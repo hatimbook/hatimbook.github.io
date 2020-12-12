@@ -10,7 +10,7 @@ var factor = 1.000;
 var dualColor = false;
 var audioenabled = false;
 var isRunning = false;
-factorlabel.innerHTML = factor.toFixed(2);
+factorlabel.innerHTML = "Factor: " + factor.toFixed(2);
 
 var canvas_radius;
 var circle_radius;
@@ -36,7 +36,7 @@ function drawTT() {
 	var delta = (2 * Math.PI) / numofpts;
 	
 	factor = factor < 100.000 ? factor + 0.001 : 1.000;
-	factorlabel.innerHTML = factor.toFixed(2);
+	factorlabel.innerHTML = "Factor: " + factor.toFixed(2);
 	
 	if(dualColor) {
 		var c1 = parseInt((10*factor * 2.500) % 250);
@@ -106,4 +106,14 @@ window.onload = window.onresize = function() {
 		canvas.width = canvas.height = window.innerHeight * 0.75;
 	}
 	drawCircle();
+}
+
+function goFullScreen(){
+    if(canvas.requestFullScreen)
+        canvas.requestFullScreen();
+    else if(canvas.webkitRequestFullScreen)
+        canvas.webkitRequestFullScreen();
+    else if(canvas.mozRequestFullScreen)
+        canvas.mozRequestFullScreen();
+	drawTT();
 }
