@@ -34,6 +34,10 @@
 		-ms-user-select: none;
 		user-select: none;
 	}
+	
+	#speed {
+		direction: rtl;
+	}
 </style>
 
 <body>
@@ -42,27 +46,25 @@
 			<div>
 				<h4 class="margin" id="autoplaycontrols">Auto Play Controls</h4>
 				<div>
-					<button onclick="if(!isRunning){myVar=setInterval(drawTT, speed); isRunning=true; audioplay();}">Play</button>
+					<button onclick="if(!isRunning){myVar=setInterval(draw, speed); isRunning=true; audioplay();}">Play</button>
 					<button onclick="if(isRunning){clearInterval(myVar); isRunning=false;  audioplay();}">Pause</button>
 					<button onclick="factor = 1.000; if(!isRunning){drawTT(); }">Reset</button>
 				</div>
 				<div>
-					<label class="container">Low Speed
-						<input type="radio" name="radio" onclick="setSpeed(20)">
+					<label class="container">Speed
+						<input type="range" id="speed" min= "1" max = "20" value = "10" oninput="setSpeed();" onchange="setSpeed();">
 						<span class="checkmark"></span>
 					</label>
-					<label class="container">Medium Speed
-					  <input type="radio" checked="checked" name="radio" onclick="setSpeed(10)">
-					  <span class="checkmark"></span>
-					</label>
-					<label class="container">High Speed
-					  <input type="radio" name="radio" onclick="setSpeed(5)">
-					  <span class="checkmark"></span>
+				</div>
+				<div>
+					<label class="container">Points
+						<input type="range" id="NumPts" min= "10" max = "400" value = "200" oninput="if(!isRunning){ drawTT(); }" onchange="if(!isRunning) { drawTT(); }">
+						<span class="checkmark"></span>
 					</label>
 				</div>
 				<div>
 					<label class="container">Color
-						<input type="checkbox" name="selectColor" onclick="dualColor=!dualColor;">
+						<input type="checkbox" name="selectColor" onclick="dualColor=!dualColor; if(!isRunning) { drawTT(); }">
 						<span class="checkmark"></span>
 					</label>
 					<label class="container">Audio
@@ -70,12 +72,7 @@
 						<span class="checkmark"></span>
 					</label>
 				</div>
-				<div>
-					<label class="container">Points
-						<input type="range" id="NumPts" min= "10" max = "400" value = "200" onclick="">
-						<span class="checkmark"></span>
-					</label>
-				</div>
+				
 			</div>
 			
 			<div>
@@ -106,7 +103,6 @@
 			<div> 
 				<button onclick="goFullScreen();">Fullscreen</button>
 				<label id="factorlabel" style="color: #f8f8ff font-size: 28px width: 75px"/> 
-				
 			</div> 
 			<div></div>
 			<p align="center">

@@ -16,6 +16,10 @@ var canvas_radius;
 var circle_radius;
 drawCircle();
 
+function draw() {
+	factor = factor < 100.000 ? factor + 0.001 : 1.000;
+	drawTT();
+}
 		
 function drawCircle() {
 	canvas_radius = canvas.height / 2;
@@ -31,11 +35,11 @@ function drawCircle() {
 	ctx.translate(-canvas_radius, -canvas_radius);
 }
 
+
 function drawTT() {		
 	var numofpts = points.value;
 	var delta = (2 * Math.PI) / numofpts;
 	
-	factor = factor < 100.000 ? factor + 0.001 : 1.000;
 	factorlabel.innerHTML = "Factor: " + factor.toFixed(2);
 	
 	if(dualColor) {
@@ -66,13 +70,14 @@ function drawTT() {
 	drawCircle();
 }
 
-function setSpeed(s) {
+function setSpeed() {
+	var sp = parseInt(document.getElementById("speed").value);
 	if(isRunning) {
 		clearInterval(myVar);
-		myVar=setInterval(drawTT, s)
+		myVar=setInterval(draw, sp)
 	}
 	else {
-		speed = s;
+		speed = sp;
 	}
 }
 
