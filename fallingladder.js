@@ -5,46 +5,48 @@ var oradius = canvas.height / 2;
 var showdiag = true;
 var numdiag = 2;
 var playaudio = false;
-var runangle = 0;
+var numpts = 2;
+var up = true;
 
 ctx.translate(oradius, oradius);
 radius = oradius * 0.90
 drawCircle();
 
-var myVar=setInterval(draw, 20);
+myVar=setInterval(draw, 100);
 
 function draw() {
 	ctx.translate(-oradius, -oradius);
 	ctx.clearRect(0, 0, 600, 600);
 	ctx.translate(oradius, oradius);
 	
-	if(runangle < 2*Math.PI) {
-		runangle = runangle + 0.01 * Math.PI;
-	} else {
-		runangle = 0;
-		numdiag = (numdiag < 32) ? numdiag + 2 : 2;
-	}
+	if((numpts == 2 && !up) || (numpts == 20 && up)) {
+		up = !up;
+		if(up) {
+			numdiag = (numdiag < 16) ? numdiag * 2 : 2;
+		}
+	} 
+	numpts = (up) ? numpts + 1 : numpts -1 ;
+	
 	
 	if(showdiag) {
-		CircleDrawDiagonals(numdiag, radius, "#f8f8ff");
+		CircleDrawDiagonals(numdiag, radius, "#74df00");
 	}
 	
 	var diffangle = Math.PI / numdiag;
-	for(i = 0; i < numdiag; i++) {
-		var startangle = i * diffangle;
-		var PointC = CirclePoints(radius-6, startangle + runangle, [0,0]);
-		ctx.rotate(startangle);
-		
-		ctx.beginPath();
-		ctx.arc(PointC.x, 0, 8, 0 , 2 * Math.PI);
-		ctx.fillStyle = "orange";
-		ctx.fill();
-		
-		ctx.rotate(-startangle);
-		
+	for(i = 0; i < 2*numdiag; i++) {
+		ctx.rotate(diffangle);
+		for(j = 0; j < numpts; j++) {
+			var pt1 = (radius*(j+1))/numpts;
+			var pt2 = (radius*(numpts-j))/numpts;
+			ctx.beginPath();
+			ctx.lineWidth = "1";
+			ctx.strokeStyle = "#74df00";
+			ctx.moveTo(pt1, 0);
+			ctx.lineTo(0, pt2);
+			ctx.stroke();
+		}
 	}
 	drawCircle();
-	
 }
 
 function drawCircle() {
