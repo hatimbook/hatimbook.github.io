@@ -12,7 +12,6 @@ radius = oradius * 0.90
 drawCircle();
 
 var myVar=setInterval(draw, 20);
-
 function draw() {
 	ctx.translate(-oradius, -oradius);
 	ctx.clearRect(0, 0, 600, 600);
@@ -41,7 +40,6 @@ function draw() {
 		ctx.fill();
 		
 		ctx.rotate(-startangle);
-		
 	}
 	drawCircle();
 	

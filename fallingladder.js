@@ -53,7 +53,7 @@ function drawCircle() {
 	ctx.beginPath();
 	ctx.lineWidth = "3";
 	ctx.arc(0, 0, radius, 0 , 2 * Math.PI);
-	ctx.strokeStyle = "white";
+	ctx.strokeStyle = "#74df00";
 	ctx.stroke();
 }
 
