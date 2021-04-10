@@ -13,13 +13,18 @@ var hu = 0;
 var shrink = 1;
 var edgereached = false;
 var edges = [];
+var run = false;
 
 
 function setup() {
   createCanvas(600, 600);
   colorMode(HSB);
+  
+  hu = 0;
+  edgereached = false;
  
   tree[0] = new Walker(width / 2, height / 2);
+  tree[0].setHue(0);
   radius *= shrink;
   for (var i = 0; i < maxWalkers; i++) {
     walkers[i] = new Walker();
@@ -42,28 +47,31 @@ function draw() {
     edges[i].show();
   }
   
-  if(walkers.length > 0)
+  if(run)
   {
-	for (var n = 0; n < iterations; n++) {
-    for (var i = walkers.length - 1; i >= 0; i--) {
-      walkers[i].walk();
-      if (walkers[i].checkStuck(tree)) {
-        walkers[i].setHue(floor(hu) % 360);
-        hu += 0.2;
-        tree.push(walkers[i]);
-		edges.push(new Edge(tree[walkers[i].stuckto].pos, walkers[i].pos))
-		if(!edgereached) { edgereached |= walkers[i].EdgeReached(); }
-        walkers.splice(i, 1);
+	  if(walkers.length > 0)
+	  {
+		for (var n = 0; n < iterations; n++) {
+		for (var i = walkers.length - 1; i >= 0; i--) {
+		  walkers[i].walk();
+		  if (walkers[i].checkStuck(tree)) {
+			walkers[i].setHue(floor(hu) % 360);
+			hu += 0.2;
+			tree.push(walkers[i]);
+			edges.push(new Edge(tree[walkers[i].stuckto].pos, walkers[i].pos))
+			if(!edgereached) { edgereached |= walkers[i].EdgeReached(); }
+			walkers.splice(i, 1);
+			
+		  }
+		}
+		}	
 		
-      }
-    }
-	}	
-	
-	while (walkers.length < maxWalkers && radius > 1 && !edgereached) {
-		radius *= shrink;
-		walkers.push(new Walker());
-	}
-  }
+		while (walkers.length < maxWalkers && radius > 1 && !edgereached) {
+			radius *= shrink;
+			walkers.push(new Walker());
+		}
+	  }
+   }
 }
 
 
@@ -154,4 +162,22 @@ function distSq(a, b) {
   var dx = b.x - a.x;
   var dy = b.y - a.y;
   return dx * dx + dy * dy;
+}
+
+function goFullScreen(){
+    if(canvas.requestFullScreen)
+        canvas.requestFullScreen();
+    else if(canvas.webkitRequestFullScreen)
+        canvas.webkitRequestFullScreen();
+    else if(canvas.mozRequestFullScreen)
+        canvas.mozRequestFullScreen();
+	//drawCF();
+}
+
+function Play(cmd) {
+	run = cmd;
+	tree = [];
+	walkers = [];
+	edges = [];
+	setup();
 }
