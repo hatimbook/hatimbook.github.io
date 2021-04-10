@@ -167,11 +167,12 @@ function distSq(a, b) {
 function goFullScreen(){
     if(canvas.requestFullScreen)
         canvas.requestFullScreen();
+	else if (elem.webkitRequestFullscreen)
+		elem.webkitRequestFullscreen();
     else if(canvas.webkitRequestFullScreen)
         canvas.webkitRequestFullScreen();
     else if(canvas.mozRequestFullScreen)
         canvas.mozRequestFullScreen();
-	//drawCF();
 }
 
 function Play(cmd) {
