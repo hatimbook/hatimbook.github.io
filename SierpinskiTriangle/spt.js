@@ -4,6 +4,7 @@ var radius = 4;
 var trianglePoints = [];
 var ChaosPoints = [];
 var run = false;
+var distratio = 0.1;
 
 function setup() {
   createCanvas(600, 600);
@@ -38,12 +39,12 @@ function draw() {
   }
   
   if(run && ChaosPoints.length < 100000) {
-	  for(var i= 0 ; i < 50; i++) {
+	  for(var i= 0 ; i < 100; i++) {
 		var lastpoint = ChaosPoints[ChaosPoints.length - 1];
 		var secondlastpoint = ChaosPoints[ChaosPoints.length - 2];
 		ChaosPoints.push(newPointinTriangle(lastpoint, secondlastpoint));
 	  }
-  }
+  }  
 }
 
 
@@ -53,10 +54,9 @@ function randomPoint() {
   return { x, y};
 }
 
-function CalcMidpoint(a, b) {
-	var x = (a.x + b.x) / 2;
-	var y = (a.y + b.y) / 2;
-	
+function CalcMidpoint(a, b, r) {
+	var x = (r*a.x + (1-r)*b.x) / 1;
+	var y = (r*a.y + (1-r)*b.y) / 1;
 	return {x, y};
 }
 
@@ -81,7 +81,7 @@ function randomPointinTriangle(Points) {
 function newPointinTriangle(a, b) {
 	var vertexIndex = floor(random() * trianglePoints.length);
 	var vertex = trianglePoints[vertexIndex];
-	var midpoint = CalcMidpoint(a, vertex);
+	var midpoint = CalcMidpoint(a, vertex, 0.5);
 	var x = midpoint.x;
 	var y = midpoint.y;
 	var hu = 117*vertexIndex + 39*a.vertexIndex + 13*b.vertexIndex;
