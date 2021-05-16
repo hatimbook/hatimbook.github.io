@@ -4,17 +4,12 @@ var radius = 4;
 var trianglePoints = [];
 var ChaosPoints = [];
 var run = false;
-var hu = 0;
-
 
 function setup() {
   createCanvas(600, 600);
   colorMode(HSB);
   trianglePoints = [];
-  //for(var i = 0; i < 3; i++) {
-//	  var Point = randomPoint();
-//	  trianglePoints[i] = Point;
-//  }
+
   var Point = randomPoint(); Point.y = radius; 
   trianglePoints[0] = Point;
   Point = randomPoint(); Point.y = height - radius; 
@@ -38,7 +33,7 @@ function draw() {
   
   for (var i = 0; i < ChaosPoints.length; i++) {
     noStroke();
-    fill(ChaosPoints[i].hu, 255, 100, 200);
+    fill(ChaosPoints[i].hu, 255, 255, 255);
 	ellipse(ChaosPoints[i].x, ChaosPoints[i].y, 1, 1);
   }
   
@@ -88,35 +83,7 @@ function newPointinTriangle(a, b) {
 	var midpoint = CalcMidpoint(a, vertex);
 	var x = midpoint.x;
 	var y = midpoint.y;
-	var hu = 250;
-	//if(vertexIndex == 0) { 
-	//	if(a.vertexIndex == 0) { 
-	//		if(b.vertexIndex == 0) { hu = 0; }
-	//		else if(b.vertexIndex == 1) { hu = 15; }
-	//		else { hu = 30; }
-	//	}
-	//	else if(a.vertexIndex == 1) {
-	//		if(b.vertexIndex == 0) { hu = 45; }
-		//	else if(b.vertexIndex == 1) { hu = 60; }
-			//else { hu = 75; }
-		//}
-		//else {
-		//	if(b.vertexIndex == 0) { hu = 90; }
-		//	else if(b.vertexIndex == 1) { hu = 105; }
-			//else { hu = 120; }
-		//}
-	//}
-	//else if(vertexIndex == 1) {
-	//	if(a.vertexIndex == 0) { hu = 90; }
-	//	else if(a.vertexIndex == 1) { hu = 120; }
-	//	else { hu = 150; }		
-	//}
-	//else if(vertexIndex == 2) {
-	//	if(a.vertexIndex == 0) { hu = 180; }
-	//	else if(a.vertexIndex == 1) { hu = 210; }
-//		else { hu = 240; }
-//	}
-	hu = 30*vertexIndex + 60*a.vertexIndex + 90*b.vertexIndex;
+	var hu = 117*vertexIndex + 39*a.vertexIndex + 13*b.vertexIndex;
 	return {x, y, hu, vertexIndex };
 }
 
@@ -129,9 +96,10 @@ function goFullScreen(){
         canvas.webkitRequestFullScreen();
     else if(canvas.mozRequestFullScreen)
         canvas.mozRequestFullScreen();
+	
+	run = true;
 }
 
 function Play(cmd) {
 	run = cmd;
-	//setup();
 }
