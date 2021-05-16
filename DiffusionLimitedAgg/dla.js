@@ -8,7 +8,7 @@ var walkers = [];
 var maxWalkers = 200;
 var iterations = 100;
 var radius = 4;
-var edgelength = 8;
+var edgelength = 2*radius;
 var hu = 0;
 var shrink = 1;
 var edgereached = false;
@@ -23,8 +23,15 @@ function setup() {
   hu = 0;
   edgereached = false;
  
-  tree[0] = new Walker(width / 2, height / 2);
+  tree[0] = new Walker((1 *width) / 2, height / 2);
+  //tree[0] = new Walker(random(width), random(height));
   tree[0].setHue(0);
+  
+  //tree[1] = new Walker((3 * width) / 5, height / 2);
+  //tree[1] = new Walker(random(width), random(height));
+  //tree[1].setHue(0);
+  
+  
   radius *= shrink;
   for (var i = 0; i < maxWalkers; i++) {
     walkers[i] = new Walker();
