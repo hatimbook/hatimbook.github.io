@@ -37,11 +37,12 @@ function draw() {
 	ellipse(ChaosPoints[i].x, ChaosPoints[i].y, 1, 1);
   }
   
-  if(run) {
-	  var lastpoint = ChaosPoints[ChaosPoints.length - 1];
-	  var secondlastpoint = ChaosPoints[ChaosPoints.length - 2];
-	  ChaosPoints.push(newPointinTriangle(lastpoint, secondlastpoint));
-	  
+  if(run && ChaosPoints.length < 100000) {
+	  for(var i= 0 ; i < 50; i++) {
+		var lastpoint = ChaosPoints[ChaosPoints.length - 1];
+		var secondlastpoint = ChaosPoints[ChaosPoints.length - 2];
+		ChaosPoints.push(newPointinTriangle(lastpoint, secondlastpoint));
+	  }
   }
 }
 
