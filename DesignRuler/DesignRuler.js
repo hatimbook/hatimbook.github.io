@@ -1,7 +1,7 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var bgaudio = document.getElementById("bgaudio"); 
-var playaudio = false;
+var playaudio = true;
 
 var oradius = canvas.height / 2;
 var speed = 0.002;
@@ -19,13 +19,14 @@ RollFactorlabel.innerHTML = "Roll Factor: " + rollfactor.toFixed(2);
 
 ctx.translate(oradius, oradius);
 radius = oradius * 0.90
-
+audioplay(playaudio);
 var multicolor = true;
 var rollcount = 0;
 var c1 = 125;
 var c2 = 125;
 
 var myVar=setInterval(draw, 5);
+
 function draw() {
 		
 	if (!pause)

@@ -42,7 +42,7 @@
 		<div class="column">
 			<div>
 				<label class="container">Audio
-					<input type="checkbox" name="selectColor" onclick="playaudio=!playaudio; audioplay(!playaudio);">
+					<input type="checkbox" name="playaudio" checked="checked" onclick="playaudio=!playaudio; audioplay(!playaudio);">
 					<span class="checkmark"></span>
 				</label>
 				<label class="container">Inner Radius
@@ -68,7 +68,7 @@
 				<label id="RollFactorLabel" style="color: #f8f8ff font-size: 28px width: 75px"/>
 			</div>			
 			<canvas id="canvas" width="500" height="500" style="border: 1px solid white;"></canvas>
-			<audio id = "bgaudio" src=".\bg_audio.mp3">
+			<audio autoplay loop id = "bgaudio" src="../bg_audio.mp3">
 				<p>If you are reading this, it is because your browser does not support the audio element. </p>
 			</audio>
 		</div>
