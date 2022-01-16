@@ -1,0 +1,79 @@
+<html>
+
+<head>
+	<title>Design Ruler
+	</title>
+</head>
+
+<style>
+	body { background-color: black; }
+	canvas { background-color: black; }
+	h4 { color: white;} 
+	h5 { color: white; } 
+	label { color: white;}
+	button {margin: 4px 2px; width: 75px}
+	
+	.column {
+		float: left;
+		width: 25%;
+		padding: 10px;
+	}
+
+	.row:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+	
+	.container {
+		display: block;
+		position: relative;
+		cursor: pointer;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+	
+</style>
+
+<body>
+	<div class="row">
+		<div class="column">
+			<div>
+				<label class="container">Audio
+					<input type="checkbox" name="selectColor" onclick="playaudio=!playaudio; audioplay(!playaudio);">
+					<span class="checkmark"></span>
+				</label>
+				<label class="container">Inner Radius
+						<input type="range" id="InnerRadius" min= "10" max = "90" value = "70" oninput="SetInnerRadius();" onchange="SetInnerRadius();">
+						<span class="checkmark"></span>
+				</label>
+				<label class="container">Point Offset
+						<input type="range" id="PointOffset" min= "0" max = "40" value = "10" oninput="SetPointOffset();" onchange="SetPointOffset();">
+						<span class="checkmark"></span>
+				</label>
+				<label class="container">Roll Factor
+						<input type="range" id="RollFactor" min= "1" max = "100" value = "8" oninput="SetRollFactor();" onchange="SetRollFactor();">
+						<span class="checkmark"></span>
+				</label>
+			</div>
+		</div>
+		<div class="column">
+			<h4 class="margin" id="timetable">Design Ruler</h4>
+			<div>
+				<button id="FSButton" onclick="goFullScreen();">Fullscreen</button>
+				<button id="pauseButton" onclick="Pause();">Play/Pause</button>
+				<button id="ResetButton" onclick="Reset();">Reset</button>
+				<label id="RollFactorLabel" style="color: #f8f8ff font-size: 28px width: 75px"/>
+			</div>			
+			<canvas id="canvas" width="500" height="500" style="border: 1px solid white;"></canvas>
+			<audio id = "bgaudio" src=".\bg_audio.mp3">
+				<p>If you are reading this, it is because your browser does not support the audio element. </p>
+			</audio>
+		</div>
+	</div>	
+		
+	<script src="DesignRuler.js"></script>
+
+</body>
