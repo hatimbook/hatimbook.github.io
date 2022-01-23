@@ -61,8 +61,9 @@
 						<input type="range" id="PointOffset" min= "0" max = "40" value = "10" oninput="SetPointOffset();" onchange="SetPointOffset();">
 						<span class="checkmark"></span>
 				</label>
-				<label class="container">Roll Factor
-						<input type="range" id="RollFactor" min= "1" max = "2000" value = "1995" oninput="SetRollFactor();" onchange="SetRollFactor();">
+				<label class="container">Roll Factor(0.001 to 10.000)
+						<!-- <input type="range" id="RollFactor" min= "1" max = "10000" value = "9950" oninput="SetRollFactor();" onchange="SetRollFactor();"> -->
+						<input type="number" id="RollFactor" min="0.001" max="10.000" value = "0.501" oninput="SetRollFactor();">
 						<span class="checkmark"></span>
 				</label>
 				

@@ -11,11 +11,13 @@ var rollangle = 0;
 var pause = false;
 
 var iradius = parseInt(document.getElementById("InnerRadius").value);
-var rollfactor = parseInt(document.getElementById("RollFactor").value)/1000;
+//var rollfactor = parseInt(document.getElementById("RollFactor").value)/1000;
 var pointoffset = parseInt(document.getElementById("PointOffset").value);
+var rollfactor = parseFloat(document.getElementById("RollFactor").value);
 
 var RollFactorlabel = document.getElementById("RollFactorLabel");
 RollFactorlabel.innerHTML = "Roll Factor: " + rollfactor.toFixed(3);
+
 
 ctx.translate(oradius, oradius);
 radius = oradius * 0.90
@@ -160,7 +162,8 @@ function SetPointOffset()
 
 function SetRollFactor()
 {
-	rollfactor = parseInt(document.getElementById("RollFactor").value)/1000;
+	//rollfactor = parseInt(document.getElementById("RollFactor").value)/1000;
+	rollfactor = parseFloat(document.getElementById("RollFactor").value);
 	RollFactorlabel.innerHTML = "Roll Factor: " + rollfactor.toFixed(3);
 	Reset();
 }
