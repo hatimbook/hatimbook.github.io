@@ -11,11 +11,11 @@ var rollangle = 0;
 var pause = false;
 
 var iradius = parseInt(document.getElementById("InnerRadius").value);
-var rollfactor = parseInt(document.getElementById("RollFactor").value)/10 + 0.05;
+var rollfactor = parseInt(document.getElementById("RollFactor").value)/1000;
 var pointoffset = parseInt(document.getElementById("PointOffset").value);
 
 var RollFactorlabel = document.getElementById("RollFactorLabel");
-RollFactorlabel.innerHTML = "Roll Factor: " + rollfactor.toFixed(2);
+RollFactorlabel.innerHTML = "Roll Factor: " + rollfactor.toFixed(3);
 
 ctx.translate(oradius, oradius);
 radius = oradius * 0.90
@@ -24,6 +24,8 @@ var multicolor = true;
 var rollcount = 0;
 var c1 = 125;
 var c2 = 125;
+
+var circledraw = false;
 
 var myVar=setInterval(draw, 5);
 
@@ -42,32 +44,57 @@ function draw() {
 		} else {
 			rollangle = 0;
 		}
-		var PointC = CirclePoints(radius-iradius, runangle, [0,0]);
-		var PointD = CirclePoints(iradius-pointoffset, -rollangle, [PointC.x,PointC.y]);
-		ctx.beginPath();
-		ctx.fillRect(PointD.x,PointD.y,1,1);
 		
-		if(multicolor)
-		{	
-			if(rollangle == 0) { rollcount++; }
-			if(rollcount == 2)
-			{
-				c1 = parseInt((c1 + 50)%250);
-				c2 = parseInt((250-(c2-50))%250);
-				rollcount=0;
-			}
-			ctx.fillStyle = "rgb("+c1+","+c2+",125)";
+		var PointC = CirclePoints(radius-iradius, runangle, [0,0]);		 
+		var PointD = CirclePoints(iradius-pointoffset, -rollangle, [PointC.x,PointC.y]);
+		
+		if(circledraw)
+		{
+			ctx.translate(-oradius, -oradius);
+			ctx.clearRect(0, 0, 600, 600);
+			ctx.translate(oradius, oradius);
+		
+			drawCircle(radius);
+				
+			ctx.translate(PointC.x, PointC.y);
+			drawCircle(iradius);
+			ctx.translate(-PointC.x, -PointC.y);
+		
+			DrawPoint(PointC);
+			DrawPoint(PointD);
 		}
 		else
 		{
-			ctx.fillStyle = "rgb(125,125,125)";
+			DrawPoint(PointD);
 		}
+	}
+}
+
+
+function DrawPoint(point) {
+	ctx.beginPath();
+	ctx.fillRect(point.x,point.y,1,1);
+	
+	if(multicolor)
+	{	
+		if(runangle == 0) { rollcount++; }
+		if(rollcount == 1)
+		{
+			c1 = parseInt((c1 + 10)%250);
+			c2 = parseInt((250-(c2-10))%250);
+			rollcount=0;
+		}
+		ctx.fillStyle = "rgb("+c1+","+c2+",125)";
+	}
+	else
+	{
+		ctx.fillStyle = "rgb(125,125,125)";
 	}
 }
 
 function drawCircle(rad) {
 	ctx.beginPath();
-	ctx.lineWidth = "3";
+	ctx.lineWidth = "1";
 	ctx.arc(0, 0, rad, 0 , 2 * Math.PI);
 	ctx.strokeStyle = "white";
 	ctx.stroke();
@@ -133,7 +160,7 @@ function SetPointOffset()
 
 function SetRollFactor()
 {
-	rollfactor = parseInt(document.getElementById("RollFactor").value)/10 + 0.05;
-	RollFactorlabel.innerHTML = "Roll Factor: " + rollfactor.toFixed(2);
+	rollfactor = parseInt(document.getElementById("RollFactor").value)/1000;
+	RollFactorlabel.innerHTML = "Roll Factor: " + rollfactor.toFixed(3);
 	Reset();
 }
