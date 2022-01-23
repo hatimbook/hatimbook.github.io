@@ -35,6 +35,14 @@
 		user-select: none;
 	}
 	
+	.row > img:hover {
+		-webkit-transform:scale(4);
+		transform:scale(4);
+	}
+	
+	img (
+		transition:transform 1s ease;
+	
 </style>
 
 <body>
@@ -54,17 +62,10 @@
 						<span class="checkmark"></span>
 				</label>
 				<label class="container">Roll Factor
-						<input type="range" id="RollFactor" min= "1" max = "2000" value = "501" oninput="SetRollFactor();" onchange="SetRollFactor();">
+						<input type="range" id="RollFactor" min= "1" max = "2000" value = "1995" oninput="SetRollFactor();" onchange="SetRollFactor();">
 						<span class="checkmark"></span>
 				</label>
-				<label class="container">Examples Patterns:
-					<div class="row"><image src="pattern1.png" style="width:200px;height:112px;"></div>
-					<div class="row"><image src="pattern2.png" style="width:200px;height:112px;"></div>
-					<div class="row"><image src="pattern3.png" style="width:200px;height:112px;"></div>
-					<div class="row"><image src="pattern4.png" style="width:200px;height:112px;"></div>
-					<div class="row"><image src="pattern5.png" style="width:200px;height:112px;"></div>
-					<div class="row"><image src="pattern6.png" style="width:200px;height:112px;"></div>
-				</label>
+				
 			</div>
 		</div>
 		<div class="column">
@@ -80,6 +81,24 @@
 				<p>If you are reading this, it is because your browser does not support the audio element. </p>
 			</audio>
 		</div>
+	</div>
+	<div class = "row">
+		<label class="container">Examples Patterns:
+		<div class = "row">
+			<image src="pattern1.png" style="width:200px;height:112px;">
+			<image src="pattern2.png" style="width:200px;height:112px;">
+			<image src="pattern3.png" style="width:200px;height:112px;">
+			<image src="pattern4.png" style="width:200px;height:112px;">
+			<image src="pattern5.png" style="width:200px;height:112px;">
+		</div>
+		<div class = "row">	
+			<image src="pattern6.png" style="width:200px;height:112px;">
+			<image src="pattern7.png" style="width:200px;height:112px;">
+			<image src="pattern8.png" style="width:200px;height:112px;">
+			<image src="pattern9.png" style="width:200px;height:112px;">
+			<image src="pattern10.png" style="width:200px;height:112px;">
+		</div>
+		</label>
 	</div>	
 		
 	<script src="DesignRuler.js"></script>
