@@ -4,7 +4,7 @@ var bgaudio = document.getElementById("bgaudio");
 var playaudio = true;
 
 var oradius = canvas.height / 2;
-var speed = 0.002;
+var speed = parseFloat(document.getElementById("PointResolution").value)/1000;
 
 var runangle = 0;
 var rollangle = 0;
@@ -165,5 +165,11 @@ function SetRollFactor()
 	//rollfactor = parseInt(document.getElementById("RollFactor").value)/1000;
 	rollfactor = parseFloat(document.getElementById("RollFactor").value);
 	RollFactorlabel.innerHTML = "Roll Factor: " + rollfactor.toFixed(3);
+	Reset();
+}
+
+function SetPointResolution()
+{
+	speed = parseFloat(document.getElementById("PointResolution").value)/1000;
 	Reset();
 }
